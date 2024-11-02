@@ -7,76 +7,76 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <style>
         body, html {
-            height: 100%; /* Pastikan body dan html mengambil 100% dari tinggi viewport */
-            margin: 0; /* Hapus margin default */
-            overflow: hidden; /* Mencegah scroll */
+            height: 100%; 
+            margin: 0;
+            overflow: hidden; 
         }
         .navbar {
-            padding: 20px; /* Padding navbar */
-            text-align: center; /* Tengah teks dalam navbar */
+            padding: 20px; 
+            text-align: center; 
         }
         .logo {
-            max-width: 400px; /* Ukuran maksimal untuk logo */
-            height: auto; /* Menjaga aspek rasio */
-            margin-bottom: 5px; /* Jarak bawah logo dikurangi */
+            max-width: 400px; 
+            height: auto;
+            margin-bottom: 5px; 
         }
         .btn-login {
             background-color: #ff4d73;
-            color: #f8e4e4; /* Warna abu-abu untuk teks tombol */
-            transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; /* Transition untuk efek smooth */
-            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); /* Initial shadow */
-            padding: 12px 24px; /* Tambahkan padding untuk tombol */
-            font-size: 1.2rem; /* Ukuran font tombol */
-            border-radius: 25px; /* Membulatkan sudut tombol */
-            min-width: 150px; /* Lebar minimum untuk tombol */
+            color: #f8e4e4;
+            transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; 
+            box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 
+            padding: 12px 24px; 
+            font-size: 1.2rem;
+            border-radius: 25px; 
+            min-width: 150px; 
         }
         .btn-login:hover {
-            background-color: #ff2b5a; /* Warna saat hover */
-            color: white; /* Mengubah warna teks menjadi putih saat hover */
-            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3); /* Bayangan lebih besar saat hover */
+            background-color: #ff2b5a; 
+            color: white;
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3); 
         }
         .btn-login:active {
-            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2); /* Reduced shadow on press */
+            box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2); 
         }
         .btn-outline-secondary {
-            transition: all 0.2s ease; /* Transition for smooth effect */
+            transition: all 0.2s ease; 
             box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
-            padding: 12px 24px; /* Tambahkan padding untuk tombol */
-            font-size: 1.0rem; /* Ukuran font tombol */
-            border-radius: 25px; /* Membulatkan sudut tombol */
-            min-width: 150px; /* Lebar minimum untuk tombol */
+            padding: 12px 24px; 
+            font-size: 1.0rem; 
+            border-radius: 25px; 
+            min-width: 150px; 
         }
         .btn-outline-secondary:hover {
-            color: #ff4d73; /* Warna teks saat hover */
-            background-color: rgba(255, 77, 115, 0.1); /* Warna latar belakang saat hover */
-            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2); /* Bayangan lebih besar saat hover */
+            color: #ff4d73; 
+            background-color: rgba(255, 77, 115, 0.1); 
+            box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2); 
         }
         .btn-outline-secondary:active {
-            transform: scale(0.95); /* Slightly scale down */
+            transform: scale(0.95); 
             box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
         }
         .brand-logo {
             font-weight: bold;
-            font-size: 2rem; /* Ukuran font lebih besar untuk logo */
-            color: #ff4d73; /* Warna logo */
+            font-size: 2rem; 
+            color: #ff4d73; 
         }
         .main-content {
-            height: calc(100vh - 80px); /* Subtract navbar height */
+            height: calc(100vh - 80px);
             display: flex;
-            flex-direction: column; /* Kolom agar elemen mengisi ruang */
-            justify-content: center; /* Pusatkan elemen secara vertikal */
-            align-items: center; /* Pusatkan elemen secara horizontal */
-            padding: 10px; /* Padding untuk konten dikurangi */
-            text-align: center; /* Rata tengah teks */
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            padding: 10px; 
+            text-align: center; 
         }
         .text-pink {
-            color: #ff4d73; /* Warna pink untuk teks */
-            font-size: 1.8rem; /* Ukuran font lebih besar untuk judul */
-            margin-bottom: 20px; /* Jarak bawah judul */
+            color: #ff4d73;
+            font-size: 1.8rem; 
+            margin-bottom: 20px; 
             margin-top: 1px;
         }
         .highlight {
-            color: black; /* Warna hitam untuk 'Kab!' */
+            color: black; 
         }
     </style>
 </head>
@@ -93,9 +93,9 @@
 
   <!-- Main Content -->
   <div class="container main-content">
-    <img src="img/logo.png" alt="Logo" class="logo"> <!-- Tempat untuk logo -->
-    <h4 class="text-pink">Layanan Aspirasi dan Pengaduan Online Rakyat.</h4> <!-- Ukuran font lebih besar -->
-    <p style="font-size: 1.0rem;">Sampaikan laporan Anda langsung kepada instansi pemerintah berwenang!</p> <!-- Ukuran font untuk paragraf -->
+    <img src="img/logo.png" alt="Logo" class="logo"> 
+    <h4 class="text-pink">Layanan Aspirasi dan Pengaduan Online Rakyat.</h4> 
+    <p style="font-size: 1.0rem;">Sampaikan laporan Anda langsung kepada instansi pemerintah berwenang!</p> 
     <div class="d-flex justify-content-center flex-wrap">
         <button class="btn btn-login mx-2">Login</button>
         <button class="btn btn-outline-secondary mx-2">Daftar</button>
