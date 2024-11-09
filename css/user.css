@@ -1,0 +1,204 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  background-color:#fff ;
+  color: #fff;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  background-color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.sidebar-header h2 {
+  font-size: 18px;
+  color: #ff4d73;
+  margin-bottom: 20px;
+}
+
+.sidebar-menu {
+  width: 100%;
+}
+.sidebar-footer {
+  margin-top: auto;
+  width: 100%; 
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  color: #333;
+  text-decoration: none;
+}
+
+.menu-item .icon {
+  margin-right: 10px;
+}
+
+.menu-item:hover {
+  background-color: #ff4d73;
+  color: #fff;
+}
+
+/* Content */
+.content {
+  color: #f0f0f0;
+  background-color: #fff;
+  flex: 1;
+  display: flex;
+  color: #333;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 10px;
+  background-color: #fff; 
+  border-bottom: 1px solid #ddd;
+}
+
+.icons .icon {
+  font-size: 20px;
+  margin-left: 15px;
+  color: #888;
+  cursor: pointer;
+  width: 4  px; /* Ubah ukuran sesuai kebutuhan */
+  height: auto; /* Pastikan proporsi tetap terjaga */
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #fff;
+  color: #333;
+  margin-top: 20px;
+  border-radius: 8px;
+}
+.myChart canvas {
+  width: 400px;
+  height: 400px;
+}
+.chart {
+  width: 600px;
+  height: 600px;
+}
+.container {
+  width: 100px;
+  height: auto;
+  background: #fff;
+}
+.hallo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  margin-bottom: 10px;
+}
+
+.show-entries label {
+  margin-right: 5px;
+  font-size: 14px;
+}
+
+.show-entries select {
+  padding: 3px;
+  font-size: 14px;
+}
+
+.search-bar label {
+  margin-right: 5px;
+  font-size: 14px;
+}
+
+.search-bar input {
+  padding: 3px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 14px;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  margin-left: 5px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.pagination button:hover {
+  background-color: #e0e0e0;
+}
+
+.vertical-line {
+  width: 2px; 
+  background-color: #ddd; 
+  height: 100vh; 
+  display: inline-block;
+  vertical-align: top;
+}
+
+.header-logo h2 {
+    font-size: 24px;
+    margin: 0;
+    color: #ff4d73; 
+}
+
+.header-logo b {
+  color: #000; 
+}
+
+/* .logo-navbar {
+  width: 4  px; /* Ubah ukuran sesuai kebutuhan */
+  /* height: auto; /* Pastikan proporsi tetap terjaga */
+} */
+/* .icons {
+  display: flex;  
+  align-items: center;
+} */ */
+
+
+

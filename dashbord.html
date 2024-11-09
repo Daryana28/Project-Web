@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard Sidebar</title>
+    <link rel="stylesheet" href="./css/dashbord.css" />
+     <link
+      rel="stylesheet"
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
+    />
+  </head>
+  <body>
+    <div class="sidebar">
+      <div class="sidebar-header">
+        <h2>User</h2>
+      </div>
+      <div class="sidebar-menu">
+        <a href="dashbord.html" class="menu-item"><i class="icon">🏠</i> Home</a>
+        <a href="Aduan.html" class="menu-item"><i class="icon">📄</i> Aduan</a>
+        <a href="user.html" class="menu-item"><i class="icon">👤</i> User</a>
+      </div>
+
+      <!-- Tambahkan logout di bagian bawah -->
+      <div class="sidebar-footer">
+        <a href="landing.html" class="menu-item logout"><i class="icon">🚪</i> Logout</a>
+      </div>
+    </div>
+
+    <div class="vertical-line"></div>
+
+    <div class="content">
+      <div class="content-header">
+        <div class="header-logo">
+          <h2>SIP<b>Rakyat!</b></h2> 
+        </div>
+        <div class="icons">
+        <i class="icon">👤</i>
+        </div>
+      </div>
+      <div class="main-content">
+        <!-- Konten utama akan ditampilkan di sini -->
+        <div class="chart">
+          <h3>Diagram Pie Keseluruhan</h3>
+          <div class="myChart">
+            <canvas id="doughnut"></canvas>
+          </div>
+        </div>
+
+        <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+        <script>
+          const ctx = document.getElementById("doughnut").getContext("2d");
+          const myChart = new Chart(ctx, {
+            type: "doughnut",
+            data: {
+              labels: ["Usulan", "Disposisi", "Verifikasi", "Pengesahan"],
+              datasets: [
+                {
+                  label: "Jumlah Data",
+                  data: [3, 4, 6, 4], // Sesuaikan data ini sesuai kebutuhan
+                  backgroundColor: ["#6a0dad", "#1e90ff", "#ffa500", "#20b2aa"],
+                  borderWidth: 1,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: "top",
+                },
+                tooltip: {
+                  enabled: true,
+                },
+              },
+            },
+          });
+        </script>
+      </div>
+    </div>
+  </body>
+</html>
