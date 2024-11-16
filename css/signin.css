@@ -140,3 +140,18 @@ button:active {
 .signup-link a:hover {
     color: #ff4d73;
 }
+
+.remember-me {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+  }
+  
+  .remember-me input[type="checkbox"] {
+    margin-right: 5px;
+  }
+  
+  .remember-me label {
+    color: #333;
+  }
+  
