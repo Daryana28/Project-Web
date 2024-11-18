@@ -1,21 +1,31 @@
 <?php
-// koneksi ke database
+// Konfigurasi koneksi database
 $host_db  = "localhost";
 $user_db  = "root";
 $pass_db  = "mysql123";
 $nama_db  = "login";
-$koneksi  = mysqli_connect ($host_db, $user_db, $pass_db, $nama_db);
 
+// Membuat koneksi ke database
+$koneksi = mysqli_connect($host_db, $user_db, $pass_db, $nama_db);
 if (!$koneksi) {
-  die("Koneksi gagal: " . mysqli_connect_error());
-} else {
-  echo "Koneksi berhasil!";
+    die("Koneksi gagal: " . mysqli_connect_error());
 }
 
-//atur variable
-$err     = "";
-$username= "";
-$ingataku= "";
+// Inisialisasi variabel
+$err = "";
+$username = ''; // Kosongkan email secara default
+$ingataku = "";
+
+// Tangani input form saat metode POST
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $username = $_POST['email'] ?? '';
+    $ingataku = $_POST['remember'] ?? '';
+}
+
+// Tangani notifikasi error dari login_process.php
+if (isset($_GET['error'])) {
+    $err = htmlspecialchars($_GET['error']);
+}
 ?>
 
 <!DOCTYPE html>
@@ -33,16 +43,30 @@ $ingataku= "";
     </div>
     <div class="login-form">
       <h2>Log in<span style="color: #ff4d73;">!</span></h2>
-      <form>
+
+      <!-- Menampilkan error jika ada -->
+      <?php if (!empty($err)): ?>
+      <div class="error-message" style="color: red; margin-bottom: 10px;">
+          <?php echo $err; ?>
+      </div>
+      <?php endif; ?>
+
+      <!-- Form Login -->
+      <form action="login_process.php" method="POST" autocomplete="off">
         <label for="email">Your email</label>
-        <input type="email" id="email" placeholder="Enter your email" value="<?php echo $username ?>" required>
+        <input type="email" id="login-email" placeholder="Enter your email" name="email"
+               value="<?php echo htmlspecialchars($username); ?>"
+               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,}$">
         
         <label for="password">Password</label>
-        <input type="password" id="password" placeholder="Enter your valid password" required>
+        <input type="password" id="login-password" placeholder="Enter your valid password"
+               name="password" required>
         
         <div class="remember-me">
-          <input type="checkbox" id="remember" name="remember">
-          <label for="remember">Remember me</label>
+          <label>
+            <input type="checkbox" id="login-remember" value="1" name="remember"
+            <?php if ($ingataku == '1') { echo "checked"; }?>> Ingat aku
+          </label>
         </div>
         
         <div class="forgot-password">
