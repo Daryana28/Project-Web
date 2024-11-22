@@ -11,9 +11,9 @@ if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
 
-// Inisialisasi variabel
+
 $err = "";
-$username = ''; // Kosongkan email secara default
+$username = '';
 $ingataku = "";
 
 // Tangani input form saat metode POST
