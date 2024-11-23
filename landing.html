@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>SIPRakyat!</title>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <link rel="stylesheet" href="./css/landing.css" />
+    <link rel="stylesheet" href="./css/landing.css">
 </head>
 <body>
 
@@ -20,12 +20,14 @@
 
   <!-- Main Content -->
   <div class="container main-content">
-    <img src="img/logo.png" alt="Logo" class="logo"> 
+    <img src="./img/logo.png" alt="Logo" class="logo"> 
     <h4 class="text-pink">Layanan Aspirasi dan Pengaduan Online Rakyat.</h4> 
     <p style="font-size: 1.0rem;">Sampaikan laporan Anda langsung kepada instansi pemerintah berwenang!</p> 
     <div class="d-flex justify-content-center flex-wrap">
+        <!-- Tombol Login -->
         <button id="loginButton" class="btn btn-login mx-2">Login</button>
-        <button id="daftar" class="btn btn-outline-secondary mx-2">Daftar</button>
+        <!-- Tombol Daftar -->
+        <button id="daftarButton" class="btn btn-outline-secondary mx-2">Daftar</button>
     </div>
   </div>
 
@@ -34,11 +36,16 @@
   <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
   <script>
+    // Event listener untuk tombol Login
     document.getElementById('loginButton').addEventListener('click', function() {
-      window.location.href = 'signin.html'; 
+      // Redirect ke signin.php
+      window.location.href = './signin.php';  
     });
-    document.getElementById('daftar').addEventListener('click', function() {
-      window.location.href = 'signup.html'; 
+
+    // Event listener untuk tombol Daftar
+    document.getElementById('daftarButton').addEventListener('click', function() {
+      // Redirect ke signup.html
+      window.location.href = './signup.html';
     });
   </script>
 
