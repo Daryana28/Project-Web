@@ -1,0 +1,291 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Arial, sans-serif;
+}
+
+body {
+  display: flex;
+  min-height: 100vh;
+  background-color: #fff;
+  color: #333;
+}
+
+/* Sidebar */
+.sidebar {
+  width: 200px;
+  background-color: #fff;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.sidebar-header h2 {
+  font-size: 18px;
+  color: #ff4d73;
+  margin-bottom: 20px;
+}
+
+.sidebar-menu {
+  width: 100%;
+}
+
+.sidebar-footer {
+  margin-top: auto;
+  width: 100%;
+}
+
+.menu-item {
+  display: flex;
+  align-items: center;
+  padding: 10px;
+  margin-bottom: 10px;
+  background-color: #fff;
+  border-radius: 5px;
+  color: #333;
+  text-decoration: none;
+}
+
+.menu-item .icon {
+  margin-right: 10px;
+}
+
+.menu-item:hover {
+  background-color: #ff4d73;
+  color: #fff;
+}
+
+/* Content */
+.content {
+  color: #333;
+  background-color: #fff;
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  padding: 20px;
+}
+
+.content-header {
+  display: flex;
+  justify-content: space-between; /* Membagi ruang antara logo dan ikon */
+  align-items: center;
+  padding: 10px 20px;
+  background-color: #fff;
+  border-bottom: 1px solid #ddd;
+}
+
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo h2 {
+  font-size: 24px;
+  margin: 0;
+  color: #ff4d73;
+}
+
+.header-logo b {
+  color: #000;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Jarak antar elemen */
+}
+
+.icon {
+  font-size: 20px;
+  color: #888;
+  margin-right: 5px; /* Jarak dengan teks */
+}
+
+.notification-icon {
+  position: relative;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  border-radius: 50%;
+  padding: 2px 6px;
+}
+
+.notification-dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  width: 250px;
+  display: none;
+  z-index: 1000;
+}
+
+.notification-dropdown.active {
+  display: block;
+}
+
+.notification-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item:hover {
+  background-color: #f9f9f9;
+}
+
+.notification-header {
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  background-color: #f7f7f7;
+}
+
+.notification-footer {
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #f7f7f7;
+  border-top: 1px solid #ddd;
+}
+
+.main-content {
+  flex: 1;
+  padding: 20px;
+  background-color: #fff;
+  color: #333;
+  margin-top: 20px;
+  border-radius: 8px;
+}
+
+.myChart canvas {
+  width: 400px;
+  height: 400px;
+}
+
+.chart {
+  width: 600px;
+  height: 600px;
+}
+
+.container {
+  width: 100px;
+  height: auto;
+  background: #fff;
+}
+
+.hallo {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: Arial, sans-serif;
+  margin-bottom: 10px;
+}
+
+.show-entries label {
+  margin-right: 5px;
+  font-size: 14px;
+}
+
+.show-entries select {
+  padding: 3px;
+  font-size: 14px;
+}
+
+.search-bar label {
+  margin-right: 5px;
+  font-size: 14px;
+}
+
+.search-bar input {
+  padding: 3px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 10px;
+  font-size: 14px;
+}
+
+th,
+td {
+  border: 1px solid #ddd;
+  padding: 8px;
+  text-align: left;
+}
+
+th {
+  background-color: #f2f2f2;
+  cursor: pointer;
+}
+
+.pagination {
+  display: flex;
+  justify-content: flex-end;
+  font-size: 14px;
+}
+
+.pagination button {
+  padding: 5px 10px;
+  margin-left: 5px;
+  border: 1px solid #ccc;
+  background-color: #f9f9f9;
+  cursor: pointer;
+}
+
+.pagination button:hover {
+  background-color: #e0e0e0;
+}
+
+.vertical-line {
+  width: 2px;
+  background-color: #ddd;
+  height: 100vh;
+  display: inline-block;
+  vertical-align: top;
+}
+
+/* Atur gaya untuk kolom action */
+td {
+  vertical-align: middle; /* Ikon akan sejajar vertikal di tengah */
+  text-align: center; /* Posisikan ikon di tengah horizontal */
+}
+
+/* Ikon di dalam kolom */
+td i {
+  margin: 0 5px; /* Berikan jarak antar ikon */
+  font-size: 20px; /* Ukuran ikon yang konsisten */
+  cursor: pointer; /* Tampilkan kursor pointer */
+}
+
+/* CSS untuk kolom ISI ADUAN */
+table td:nth-child(4),
+table th:nth-child(4) {
+  word-wrap: break-word; /* Memotong kata jika terlalu panjang */
+  white-space: normal; /* Memungkinkan teks turun ke baris baru */
+  max-width: 300px; /* Sesuaikan lebar maksimum kolom */
+}
+a {
+  text-decoration: none; /* Hilangkan garis bawah pada elemen <a> */
+}

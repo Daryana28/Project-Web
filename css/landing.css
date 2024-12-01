@@ -1,0 +1,72 @@
+body, html {
+    height: 100%; 
+    margin: 0;
+    overflow: hidden; 
+}
+.navbar {
+    padding: 20px; 
+    text-align: center; 
+}
+.logo {
+    max-width: 400px; 
+    height: auto;
+    margin-bottom: 5px; 
+}
+.btn-login {
+    background-color: #ff4d73;
+    color: #f8e4e4;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease, color 0.3s ease; 
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2); 
+    padding: 12px 24px; 
+    font-size: 1.2rem;
+    border-radius: 25px; 
+    min-width: 150px; 
+}
+.btn-login:hover {
+    background-color: #ff2b5a; 
+    color: white;
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.3); 
+}
+.btn-login:active {
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2); 
+}
+.btn-outline-secondary {
+    transition: all 0.2s ease; 
+    box-shadow: 0px 5px 15px rgba(0, 0, 0, 0.2);
+    padding: 12px 24px; 
+    font-size: 1.0rem; 
+    border-radius: 25px; 
+    min-width: 150px; 
+}
+.btn-outline-secondary:hover {
+    color: #ff4d73; 
+    background-color: rgba(255, 77, 115, 0.1); 
+    box-shadow: 0px 10px 25px rgba(0, 0, 0, 0.2); 
+}
+.btn-outline-secondary:active {
+    transform: scale(0.95); 
+    box-shadow: 0px 2px 8px rgba(0, 0, 0, 0.2);
+}
+.brand-logo {
+    font-weight: bold;
+    font-size: 2rem; 
+    color: #ff4d73; 
+}
+.main-content {
+    height: calc(100vh - 80px);
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+    padding: 10px; 
+    text-align: center; 
+}
+.text-pink {
+    color: #ff4d73;
+    font-size: 1.8rem; 
+    margin-bottom: 20px; 
+    margin-top: 1px;
+}
+.highlight {
+    color: black; 
+}
