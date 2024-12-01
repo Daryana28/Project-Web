@@ -1,198 +1,93 @@
 <?php
-// Mulai session untuk mengambil data login
-session_start();
+// Sambungkan ke database
+$koneksi = mysqli_connect("localhost", "root", "", "login");
 
-// Periksa apakah pengguna sudah login
-if (!isset($_SESSION['name'])) {
-    // Jika belum login, redirect ke halaman login
-    header("Location: signin.php");
-    exit();
-}
-
-// Ambil nama pengguna dari session
-$name = $_SESSION['name'];
-
-// Konfigurasi koneksi database
-$host_db  = "localhost";
-$user_db  = "root";
-$pass_db  = "";
-$nama_db  = "login";
-
-$koneksi = mysqli_connect($host_db, $user_db, $pass_db, $nama_db);
+// Periksa koneksi
 if (!$koneksi) {
-    die("Koneksi gagal: " . mysqli_connect_error());
+    die("Connection failed: " . mysqli_connect_error());
 }
 
-// Ambil notifikasi dari tabel aduan untuk user yang sedang login
-$email = $_SESSION['email'];
-$query = "SELECT * FROM aduan WHERE user_email = '$email' AND notification IS NOT NULL AND status = 'Rejected'";
-$result = mysqli_query($koneksi, $query);
-$notification_count = mysqli_num_rows($result);
-
-// Tandai notifikasi sebagai sudah dibaca
-if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
-    $update_query = "UPDATE aduan SET notification = NULL WHERE user_email = '$email' AND notification IS NOT NULL";
-    mysqli_query($koneksi, $update_query);
-    header("Location: dashboard.php"); // Refresh halaman setelah menandai sebagai terbaca
-    exit();
-}
-
-// Ambil berita dari database
+// Query untuk mengambil berita
 $query_berita = "SELECT * FROM berita ORDER BY created_at DESC";
 $result_berita = mysqli_query($koneksi, $query_berita);
+
+// Periksa jika query gagal
 if (!$result_berita) {
-    die("Error mengambil data berita: " . mysqli_error($koneksi)); // Cek jika query gagal
+    die('Error query: ' . mysqli_error($koneksi));
 }
 ?>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dashboard-user</title>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Dashboard-User</title>
     <link rel="stylesheet" href="./css/dashbord.css" />
-    <link
-        rel="stylesheet"
-        href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css"
-    />
-    <link
-        href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css"
-        rel="stylesheet"
-    />
-    <style>
-        .notification-icon {
-            position: relative;
-            cursor: pointer;
-            margin-left: 20px;
-        }
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: red;
-            color: white;
-            font-size: 12px;
-            border-radius: 50%;
-            padding: 2px 6px;
-        }
-        .news-container {
-            margin-top: 20px;
-        }
-
-        .news-item {
-            margin-bottom: 20px;
-            padding: 15px;
-            border: 1px solid #ddd;
-            border-radius: 8px;
-            background-color: #f9f9f9;
-        }
-
-        .news-title {
-            font-size: 18px;
-            font-weight: bold;
-            color: #333;
-        }
-
-        .news-content {
-            margin: 10px 0;
-            font-size: 14px;
-            color: #555;
-        }
-
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: 0;
-            height: 100%;
-            width: 250px;
-            background-color: #f8f9fa;
-            padding-top: 20px;
-            overflow-y: auto;
-            z-index: 1000;
-        }
-
-        .vertical-line {
-            position: fixed;
-            top: 0;
-            left: 250px;
-            height: 100%;
-            width: 1px;
-            background-color: #ddd;
-        }
-
-        .main-content {
-            margin-left: 270px;
-            padding: 20px;
-            overflow: auto;
-        }
-
-        .news-container {
-            max-width: 800px;
-            margin: 15px;
-            background-color: #fff;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-        }
-
-        .name {
-            font-size: 24px;
-            font-weight: bold;
-            color:  #ff4d73;
-            font-family: 'Arial', sans-serif;
-            margin: 20px 0;
-        }
-
-        .header h2 {
-            font-size: 20px;
-            font-weight: 400;
-            color: #333;
-            font-family: 'Arial', sans-serif;
-            margin: 10px 0;
-        }
-    </style>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet" />
 </head>
 <body>
-<div class="sidebar">
-    <div class="sidebar-header">
-        <h2>User</h2>
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <h2 style="font-weight: bold;">User</h2>
+        </div>
+        <div class="sidebar-menu">
+            <a href="dashboard.php" class="menu-item">
+                <i class="bi bi-house-heart-fill" style="margin: 5px;"></i> Home
+            </a>
+            <a href="Aduan.php" class="menu-item">
+                <i class="bi bi-clipboard2-fill" style="margin: 5px;"></i>Buat Aduan
+            </a>
+            <a href="riwayat_aduan.php" class="menu-item">
+                <i class="bi bi-clock-fill" style="margin: 5px;"></i> Riwayat Aduan
+            </a>
+        </div>
+        <!-- Tambahkan logout di bagian bawah -->
+        <div class="sidebar-footer">
+            <a href="../landing.html" class="menu-item logout">
+                <i class="bi bi-door-open-fill"></i> Logout
+            </a>
+        </div>
     </div>
-    <div class="sidebar-menu">
-        <a href="dashboard.php" class="menu-item">
-            <i class="bi bi-house-heart-fill"></i> Home
-        </a>
-        <a href="Aduan.php" class="menu-item">
-            <i class="bi bi-clipboard2-fill"></i> Buat Aduan
-        </a>
-        <a href="riwayat_aduan.php" class="menu-item">
-            <i class="bi bi-clock-fill"></i> Riwayat Aduan
-        </a>
-    </div>
-    <div class="sidebar-footer">
-        <a href="landing.html" class="menu-item logout">
-            <i class="bi bi-door-open-fill"></i> Logout
-        </a>
-    </div>
-</div>
-
-<div class="main-content">
-    <header class="header">
-        <h2>Halo selamat datang,</h2>
-        <h1 class="name">Berita terbaru saat ini<span>!</span></h1>
-    </header>
+    <div class="vertical-line"></div>
+    <div class="content">
+        <div class="content-header">
+            <div class="header-logo">
+                <h2>SIP<b>Rakyat!</b></h2>
+            </div>
+            <div class="icons">
+                <i class="bi bi-person-circle"></i>
+            </div>
+        </div>
+        <div class="main-content">
+            <!-- Konten utama akan ditampilkan di sini -->
+            <div class="container">
+                <div class="welcome-section">
+                    <p>Halo selamat datang,</p>
+                </div>
                 <!-- Tambahkan berita di bawah ini -->
-                <div class="news-container">
+                <div class="row">
                     <?php if (mysqli_num_rows($result_berita) > 0): ?>
                         <?php while ($berita = mysqli_fetch_assoc($result_berita)): ?>
-                            <div class="news-item">
-                                <h3 class="news-title"><?php echo htmlspecialchars($berita['title']); ?></h3>
-                                <p class="news-content"><?php echo nl2br(htmlspecialchars($berita['content'])); ?></p>
-                                <?php if (!empty($berita['image']) && file_exists('admin/' . $berita['image'])): ?>
-                                    <img src="<?php echo 'admin/' . htmlspecialchars($berita['image']); ?>" alt="Gambar Berita" style="max-width: 100px; max-height: 100px; width: auto; height: auto; margin-top: 5px;">
-                                <?php else: ?>
-                                    <p>Gambar tidak tersedia.</p>
-                                <?php endif; ?>
-                                <small>Diposting pada: <?php echo htmlspecialchars($berita['created_at']); ?></small>
+                            <div class="col-md-4 mb-4">
+                                <div class="card">
+                                    <?php if (!empty($berita['image']) && file_exists('admin/' . $berita['image'])): ?>
+                                        <img src="<?php echo 'admin/' . htmlspecialchars($berita['image']); ?>" class="card-img-top" alt="Gambar Berita" style="max-height: 200px; object-fit: cover;">
+                                    <?php else: ?>
+                                        <div class="card-img-top" style="height: 200px; background-color: #f0f0f0; display: flex; justify-content: center; align-items: center;">
+                                            <p>Gambar tidak tersedia</p>
+                                        </div>
+                                    <?php endif; ?>
+                                    <div class="card-body">
+                                        <h5 class="card-title"><?php echo htmlspecialchars($berita['title']); ?></h5>
+                                        <p class="card-text"><?php echo nl2br(htmlspecialchars(substr($berita['content'], 0, 150)) . '...'); ?></p>
+                                        <a href="berita_detail.php?id=<?php echo $berita['id']; ?>" class="btn btn-primary">Baca Selengkapnya</a>
+                                    </div>
+                                    <div class="card-footer text-muted">
+                                        Diposting pada: <?php echo htmlspecialchars($berita['created_at']); ?>
+                                    </div>
+                                </div>
                             </div>
                         <?php endwhile; ?>
                     <?php else: ?>
@@ -201,6 +96,17 @@ if (!$result_berita) {
                 </div>
             </div>
         </div>
-    </div>
+    </div> 
+    <script>
+        function toggleNotifications() {
+            const dropdown = document.getElementById('notificationDropdown');
+            dropdown.classList.toggle('active');
+        }
+    </script>
 </body>
 </html>
+
+<?php
+// Menutup koneksi setelah selesai
+mysqli_close($koneksi);
+?>

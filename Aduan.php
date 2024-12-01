@@ -111,7 +111,7 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
 <body>
     <div class="sidebar">
         <div class="sidebar-header">
-            <h2>User</h2>
+            <h2 style="font-weight: bold;">User</h2>
         </div>
         <div class="sidebar-menu">
         <a href="dashboard.php" class="menu-item">
@@ -139,7 +139,7 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
                 <h2>SIP<b>Rakyat!</b></h2> 
             </div>
             <div class="icons">
-                <i class="icon">👤</i>
+                <i class="bi bi-person-circle"></i>
                 <span style="margin-left: 10px;">Halo, <?php echo htmlspecialchars($name); ?>!</span>
 
                 <!-- Ikon Notifikasi -->
