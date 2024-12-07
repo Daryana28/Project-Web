@@ -106,6 +106,19 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
             background-color: #f7f7f7;
             border-top: 1px solid #ddd;
         }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
     </style>
 </head>
 <body>
@@ -114,15 +127,15 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
             <h2 style="font-weight: bold;">User</h2>
         </div>
         <div class="sidebar-menu">
-        <a href="dashboard.php" class="menu-item">
-                  <i class="bi bi-house-heart-fill" style="margin: 5px;"></i> Home
-              </a>
-              <a href="Aduan.php" class="menu-item">
-                  <i class="bi bi-clipboard2-fill" style="margin: 5px;"></i>Buat Aduan
-              </a>
-              <a href="riwayat_aduan.php" class="menu-item">
-              <i class="bi bi-clock-fill" style="margin: 5px;"></i> Riwayat Aduan
-              </a>
+            <a href="dashboard.php" class="menu-item">
+                <i class="bi bi-house-heart-fill" style="margin: 5px;"></i> Home
+            </a>
+            <a href="Aduan.php" class="menu-item">
+                <i class="bi bi-clipboard2-fill" style="margin: 5px;"></i>Buat Aduan
+            </a>
+            <a href="riwayat_aduan.php" class="menu-item">
+                <i class="bi bi-clock-fill" style="margin: 5px;"></i> Riwayat Aduan
+            </a>
         </div>
         <div class="sidebar-footer">
             <a href="landing.html" class="menu-item logout">
@@ -140,7 +153,7 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
             </div>
             <div class="icons">
                 <i class="bi bi-person-circle"></i>
-                <span style="margin-left: 10px;">Halo, <?php echo htmlspecialchars($name); ?>!</span>
+                <span style="margin-left: 10px;">Halo</span>
 
                 <!-- Ikon Notifikasi -->
                 <div class="notification-icon" onclick="toggleNotifications()">
@@ -167,7 +180,7 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
                 </div>
             </div>
         </div>
-        <div class="main-content">
+        <div class="main-content fade-in">
             <div class="container mt-5">
                 <!-- Notifikasi sukses -->
                 <?php if (isset($_GET['success'])): ?>

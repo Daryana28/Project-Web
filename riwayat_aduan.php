@@ -12,7 +12,6 @@ if (!isset($_SESSION['name'])) {
 // Ambil nama pengguna dari session
 $name = $_SESSION['name'];
 
-
 // Konfigurasi koneksi database
 $host_db  = "localhost";
 $user_db  = "root";
@@ -30,22 +29,12 @@ $email = $_SESSION['email'];
 
 // Query untuk mengambil data aduan dengan status 'Rejected' dan ada notifikasi
 $query = "SELECT * FROM aduan WHERE user_email = '$email' AND notification IS NOT NULL AND status = 'Rejected'";
-
-// Debugging: Tampilkan query yang dijalankan
-// echo $query;  // Un-comment jika ingin melihat query
-
 $result = mysqli_query($koneksi, $query);
 
-// Debugging: Cek hasil query
-if (mysqli_num_rows($result) > 0) {
-    // Jika ada data
-    $notification_count = mysqli_num_rows($result);
-} else {
-    // Jika tidak ada data
-    $notification_count = 0;
-}
+// Hitung jumlah notifikasi
+$notification_count = mysqli_num_rows($result);
 
-// Ambil notifikasi dari tabel aduan untuk user yang sedang login
+// Ambil data aduan untuk riwayat
 $query = "SELECT * FROM aduan WHERE user_email = '$email' ORDER BY created_at DESC";
 $result = mysqli_query($koneksi, $query);
 
@@ -151,6 +140,19 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
             color: orange;
             font-weight: bold;
         }
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        .fade-in {
+            animation: fadeIn 0.5s ease forwards;
+        }
     </style>
 </head>
 <body>
@@ -185,7 +187,7 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
             </div>
             <div class="icons">
                 <i class="bi bi-person-circle"></i>
-                <span style="margin-left: 10px;">Halo, <?php echo htmlspecialchars($name); ?>!</span>
+                <span style="margin-left: 10px;">Halo</span>
 
                 <!-- Ikon Notifikasi -->
                 <div class="notification-icon" onclick="toggleNotifications()">
@@ -212,7 +214,7 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
                 </div>
             </div>
         </div>
-        <div class="main-content">
+        <div class="main-content fade-in">
             <div class="container mt-5">
                 <h2>Riwayat Aduan Anda</h2>
                 <?php if (mysqli_num_rows($result) > 0): ?>

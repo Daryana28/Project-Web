@@ -19,8 +19,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $email = mysqli_real_escape_string($koneksi, $_POST['email']);
     $password = mysqli_real_escape_string($koneksi, $_POST['password']);
     
-    // Mengenkripsi password menggunakan password_hash()
-    $hashed_password = password_hash($password, PASSWORD_DEFAULT);
+     // Jangan mengenkripsi password
+    $hashed_password = $password;  // Menyimpan password tanpa enkripsi
+    
 
     // Cek apakah email sudah ada di database
     $query = "SELECT * FROM users WHERE email = '$email'";

@@ -52,6 +52,20 @@ while ($row = mysqli_fetch_assoc($result)) {
             max-width: 100%;
             height: auto;
         }
+
+        /* Animasi fade-in */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -60,7 +74,7 @@ while ($row = mysqli_fetch_assoc($result)) {
             <h2>Administrator</h2>
         </div>
         <div class="sidebar-menu">
-            <a href="home.html" class="menu-item"
+            <a href="home.php" class="menu-item"
           ><i class="bi bi-house-heart-fill" style="margin: 5px"></i> Home</a
         >
         <a href="Aduan.php" class="menu-item"
@@ -90,7 +104,7 @@ while ($row = mysqli_fetch_assoc($result)) {
                 <i class="bi bi-person-circle"></i>
             </div>
         </div>
-        <div class="main-content">
+        <div class="main-content fade-in"> <!-- Tambahkan kelas fade-in di sini -->
             <h2 style="text-align: center;">Statistik Aduan Berdasarkan Kampung</h2>
             <div class="chart-container">
                 <canvas id="statistikChart"></canvas>
@@ -99,7 +113,6 @@ while ($row = mysqli_fetch_assoc($result)) {
     </div>
 
     <script>
-        
         const kampung = <?php echo json_encode($kampung); ?>;
         const jumlah = <?php echo json_encode($jumlah); ?>;
 
@@ -144,3 +157,8 @@ while ($row = mysqli_fetch_assoc($result)) {
     </script>
 </body>
 </html>
+
+<?php
+// Menutup koneksi setelah selesai
+mysqli_close($koneksi);
+?>

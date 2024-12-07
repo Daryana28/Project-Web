@@ -88,7 +88,6 @@ $result = mysqli_query($koneksi, $query);
 
         .form-group {
             margin-bottom: 15px;
-       
         }
 
         .form-group label {
@@ -134,6 +133,20 @@ $result = mysqli_query($koneksi, $query);
             height: auto;
             margin-top: 10px;
         }
+
+        /* Animasi fade-in */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
 </head>
 <body>
@@ -142,7 +155,7 @@ $result = mysqli_query($koneksi, $query);
             <h2>Administrator</h2>
         </div>
         <div class="sidebar-menu">
-            <a href="home.html" class="menu-item"
+            <a href="home.php" class="menu-item"
           ><i class="bi bi-house-heart-fill" style="margin: 5px"></i> Home</a
         >
         <a href="Aduan.php" class="menu-item"
@@ -159,44 +172,47 @@ $result = mysqli_query($koneksi, $query);
             <a href="../landing.html" class="menu-item logout"><i class="bi bi-door-open-fill"></i> Logout</a>
         </div>
     </div>
-<div class="vertical-line"></div>
+    <div class="vertical-line"></div>
 
     <div class="content">
-      <div class="content-header">
-        <div class="header-logo">
-          <h2>SIP<b>Rakyat!</b></h2>
+        <div class="content-header">
+            <div class="header-logo">
+                <h2>SIP<b>Rakyat!</b></h2>
+            </div>
+            <div class="icons">
+                <i class="bi bi-person-circle"></i>
+            </div>
         </div>
-        <div class="icons">
-          <i class="bi bi-person-circle"></i>
-        </div>
-      </div>
-      <div class="main-content">
-        <div class="content">
-        <h2 style="text-align: center;">Post Berita Baru</h2>
-        <div class="post-container">
-            <?php if (isset($success)): ?>
-                <div style="color: green; margin-bottom: 15px;"><?php echo $success; ?></div>
-            <?php elseif (isset($error)): ?>
-                <div style="color: red; margin-bottom: 15px;"><?php echo $error; ?></div>
-            <?php endif; ?>
-            <form action="post_berita.php" method="POST" enctype="multipart/form-data" class:hehe>
-                <div class="form-group">
-                    <label for="title">Judul Berita</label>
-                    <input type="text" id="title" name="title" placeholder="Masukkan judul berita" required>
-                </div>
-                <div class="form-group">
-                    <label for="content">Isi Berita</label>
-                    <textarea id="content" name="content" rows="5" placeholder="Masukkan isi berita" required></textarea>
-                </div>
-                <div class="form-group">
-                    <label for="image">Upload Gambar</label>
-                    <input type="file" id="image" name="image" accept="image/*">
-                </div>
-                <button type="submit" class="btn-submit">Post Berita</button>
-            </form>
+        <div class="main-content fade-in"> <!-- Tambahkan kelas fade-in di sini -->
+            <h2 style="text-align: center;">Post Berita Baru</h2>
+            <div class="post-container">
+                <?php if (isset($success)): ?>
+                    <div style="color: green; margin-bottom: 15px;"><?php echo $success; ?></div>
+                <?php elseif (isset($error)): ?>
+                    <div style="color: red; margin-bottom: 15px;"><?php echo $error; ?></div>
+                <?php endif; ?>
+                <form action="post_berita.php" method="POST" enctype="multipart/form-data">
+                    <div class="form-group">
+                        <label for="title">Judul Berita</label>
+                        <input type="text" id="title" name="title" placeholder="Masukkan judul berita" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="content">Isi Berita</label>
+                        <textarea id="content" name="content" rows="5" placeholder="Masukkan isi berita" required></textarea>
+                    </div>
+                    <div class="form-group">
+                        <label for="image">Upload Gambar</label>
+                        <input type="file" id="image" name="image" accept="image/*">
+                    </div>
+                    <button type="submit" class="btn-submit">Post Berita</button>
+                </form>
+            </div>
         </div>
     </div>
-      </div>
-    
 </body>
 </html>
+
+<?php
+// Menutup koneksi setelah selesai
+mysqli_close($koneksi);
+?>

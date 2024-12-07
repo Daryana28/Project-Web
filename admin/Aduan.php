@@ -71,6 +71,20 @@ $result = mysqli_query($koneksi, $query);
                 display: none;
             }
         }
+
+        /* Animasi untuk konten */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeIn 0.6s forwards;
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
     </style>
     <script>
       // Fungsi untuk mencetak aduan spesifik
@@ -155,7 +169,7 @@ $result = mysqli_query($koneksi, $query);
         <h2>Administrator</h2>
       </div>
       <div class="sidebar-menu">
-       <a href="home.html" class="menu-item"
+       <a href="home.php" class="menu-item"
           ><i class="bi bi-house-heart-fill" style="margin: 5px"></i> Home</a
         >
         <a href="Aduan.php" class="menu-item"
@@ -171,9 +185,6 @@ $result = mysqli_query($koneksi, $query);
         <div class="sidebar-footer">
             <a href="../landing.html" class="menu-item logout"><i class="bi bi-door-open-fill"></i> Logout</a>
       </div>
-
-      <!-- Tambahkan logout di bagian bawah -->
-      
     </div>
 
     <div class="vertical-line"></div>
@@ -187,7 +198,7 @@ $result = mysqli_query($koneksi, $query);
                 <i class="bi bi-person-circle"></i>
             </div>
         </div>
-        <div class="main-content">
+        <div class="main-content fade-in"> <!-- Tambahkan kelas fade-in di sini -->
             <!-- Pesan sukses atau error -->
             <?php
             if (isset($_GET['success'])) {
@@ -245,3 +256,8 @@ $result = mysqli_query($koneksi, $query);
     </div>
 </body>
 </html>
+
+<?php
+// Menutup koneksi setelah selesai
+mysqli_close($koneksi);
+?>
