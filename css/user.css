@@ -8,8 +8,8 @@
 body {
   display: flex;
   min-height: 100vh;
-  background-color:#fff ;
-  color: #fff;
+  background-color: #fff;
+  color: #333;
 }
 
 /* Sidebar */
@@ -31,9 +31,10 @@ body {
 .sidebar-menu {
   width: 100%;
 }
+
 .sidebar-footer {
   margin-top: auto;
-  width: 100%; 
+  width: 100%;
 }
 
 .menu-item {
@@ -58,31 +59,111 @@ body {
 
 /* Content */
 .content {
-  color: #f0f0f0;
+  color: #333;
   background-color: #fff;
   flex: 1;
   display: flex;
-  color: #333;
   flex-direction: column;
   padding: 20px;
 }
 
 .content-header {
   display: flex;
-  justify-content: space-between;
+  justify-content: space-between; /* Membagi ruang antara logo dan ikon */
   align-items: center;
-  padding: 10px;
-  background-color: #fff; 
+  padding: 10px 20px;
+  background-color: #fff;
   border-bottom: 1px solid #ddd;
 }
 
-.icons .icon {
+.header-logo {
+  display: flex;
+  align-items: center;
+}
+
+.header-logo h2 {
+  font-size: 24px;
+  margin: 0;
+  color: #ff4d73;
+}
+
+.header-logo b {
+  color: #000;
+}
+
+.icons {
+  display: flex;
+  align-items: center;
+  gap: 10px; /* Jarak antar elemen */
+}
+
+.icon {
   font-size: 20px;
-  margin-left: 15px;
   color: #888;
+  margin-right: 5px; /* Jarak dengan teks */
+}
+
+.notification-icon {
+  position: relative;
+  font-size: 20px;
   cursor: pointer;
-  width: 4  px; /* Ubah ukuran sesuai kebutuhan */
-  height: auto; /* Pastikan proporsi tetap terjaga */
+}
+
+.notification-badge {
+  position: absolute;
+  top: -5px;
+  right: -5px;
+  background-color: red;
+  color: white;
+  font-size: 12px;
+  border-radius: 50%;
+  padding: 2px 6px;
+}
+
+.notification-dropdown {
+  position: absolute;
+  top: 40px;
+  right: 0;
+  background: white;
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+  width: 250px;
+  display: none;
+  z-index: 1000;
+}
+
+.notification-dropdown.active {
+  display: block;
+}
+
+.notification-item {
+  padding: 10px;
+  border-bottom: 1px solid #eee;
+  font-size: 14px;
+}
+
+.notification-item:last-child {
+  border-bottom: none;
+}
+
+.notification-item:hover {
+  background-color: #f9f9f9;
+}
+
+.notification-header {
+  font-weight: bold;
+  text-align: center;
+  padding: 10px;
+  border-bottom: 1px solid #ddd;
+  background-color: #f7f7f7;
+}
+
+.notification-footer {
+  text-align: center;
+  padding: 10px;
+  font-size: 14px;
+  background-color: #f7f7f7;
+  border-top: 1px solid #ddd;
 }
 
 .main-content {
@@ -93,19 +174,23 @@ body {
   margin-top: 20px;
   border-radius: 8px;
 }
+
 .myChart canvas {
   width: 400px;
   height: 400px;
 }
+
 .chart {
   width: 600px;
   height: 600px;
 }
+
 .container {
   width: 100px;
   height: auto;
   background: #fff;
 }
+
 .hallo {
   display: flex;
   justify-content: space-between;
@@ -174,31 +259,33 @@ th {
 }
 
 .vertical-line {
-  width: 2px; 
-  background-color: #ddd; 
-  height: 100vh; 
+  width: 2px;
+  background-color: #ddd;
+  height: 100vh;
   display: inline-block;
   vertical-align: top;
 }
 
-.header-logo h2 {
-    font-size: 24px;
-    margin: 0;
-    color: #ff4d73; 
+/* Atur gaya untuk kolom action */
+td {
+  vertical-align: middle; /* Ikon akan sejajar vertikal di tengah */
+  text-align: center; /* Posisikan ikon di tengah horizontal */
 }
 
-.header-logo b {
-  color: #000; 
+/* Ikon di dalam kolom */
+td i {
+  margin: 0 5px; /* Berikan jarak antar ikon */
+  font-size: 20px; /* Ukuran ikon yang konsisten */
+  cursor: pointer; /* Tampilkan kursor pointer */
 }
 
-/* .logo-navbar {
-  width: 4  px; /* Ubah ukuran sesuai kebutuhan */
-  /* height: auto; /* Pastikan proporsi tetap terjaga */
-} */
-/* .icons {
-  display: flex;  
-  align-items: center;
-} */ */
-
-
-
+/* CSS untuk kolom ISI ADUAN */
+table td:nth-child(4),
+table th:nth-child(4) {
+  word-wrap: break-word; /* Memotong kata jika terlalu panjang */
+  white-space: normal; /* Memungkinkan teks turun ke baris baru */
+  max-width: 300px; /* Sesuaikan lebar maksimum kolom */
+}
+a {
+  text-decoration: none; /* Hilangkan garis bawah pada elemen <a> */
+}

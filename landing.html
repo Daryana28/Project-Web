@@ -1,46 +1,60 @@
 <!DOCTYPE html>
 <html lang="id">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>SIPRakyat!</title>
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
     <link rel="stylesheet" href="./css/landing.css" />
-</head>
-<body>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <nav class="navbar">
+      <div>
+        <div class="brand-logo">SIP<span class="highlight">Rakyat!</span></div>
+      </div>
+    </nav>
 
-  <!-- Navbar -->
-  <nav class="navbar">
-    <div> 
-      <div class="brand-logo">
-        SIP<span class="highlight">Rakyat!</span>
+    <!-- Main Content -->
+    <div class="container main-content">
+      <img src="./img/logo.png" alt="Logo" class="logo" />
+      <h4 class="text-pink">Layanan Aspirasi dan Pengaduan Online Rakyat.</h4>
+      <p style="font-size: 1rem">
+        Sampaikan laporan Anda langsung kepada instansi pemerintah berwenang!
+      </p>
+      <div class="d-flex justify-content-center flex-wrap">
+        <!-- Tombol Login -->
+        <button id="loginButton" class="btn btn-login mx-2">Login</button>
+        <!-- Tombol Daftar -->
+        <button id="daftarButton" class="btn btn-outline-secondary mx-2">
+          Daftar
+        </button>
       </div>
     </div>
-  </nav>
 
-  <!-- Main Content -->
-  <div class="container main-content">
-    <img src="img/logo.png" alt="Logo" class="logo"> 
-    <h4 class="text-pink">Layanan Aspirasi dan Pengaduan Online Rakyat.</h4> 
-    <p style="font-size: 1.0rem;">Sampaikan laporan Anda langsung kepada instansi pemerintah berwenang!</p> 
-    <div class="d-flex justify-content-center flex-wrap">
-        <button id="loginButton" class="btn btn-login mx-2">Login</button>
-        <button id="daftar" class="btn btn-outline-secondary mx-2">Daftar</button>
-    </div>
-  </div>
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
-  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.4.4/dist/umd/popper.min.js"></script>
-  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      // Event listener untuk tombol Login
+      document
+        .getElementById("loginButton")
+        .addEventListener("click", function () {
+          // Redirect ke signin.php
+          window.location.href = "./signin.php";
+        });
 
-  <script>
-    document.getElementById('loginButton').addEventListener('click', function() {
-      window.location.href = 'signin.html'; 
-    });
-    document.getElementById('daftar').addEventListener('click', function() {
-      window.location.href = 'signup.html'; 
-    });
-  </script>
-
-</body>
+      // Event listener untuk tombol Daftar
+      document
+        .getElementById("daftarButton")
+        .addEventListener("click", function () {
+          // Redirect ke signup.html
+          window.location.href = "./signup.php";
+        });
+    </script>
+  </body>
 </html>

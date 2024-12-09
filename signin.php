@@ -2,7 +2,7 @@
 // Konfigurasi koneksi database
 $host_db  = "localhost";
 $user_db  = "root";
-$pass_db  = "mysql123";
+$pass_db  = "";
 $nama_db  = "login";
 
 // Membuat koneksi ke database
@@ -11,9 +11,9 @@ if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
 }
 
-// Inisialisasi variabel
+
 $err = "";
-$username = ''; // Kosongkan email secara default
+$username = '';
 $ingataku = "";
 
 // Tangani input form saat metode POST
@@ -77,7 +77,7 @@ if (isset($_GET['error'])) {
       </form>
       
       <div class="signup-link">
-        Don’t have an account? <a href="signup.html">Sign up</a>
+        Don’t have an account? <a href="signup.php">Sign up</a>
       </div>
     </div>
   </div>
