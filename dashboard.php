@@ -250,6 +250,11 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
                             <p>Tidak ada berita yang tersedia.</p>
                         <?php endif; ?>
                     </div>
+                    <footer class="footer mt-4 py-3 ">
+    <div class="container text-center">
+        <span class="text-muted">© 2024 SIPRakyat. Semua hak dilindungi.</span>
+    </div>
+</footer>
                 </div>
             </div>
         </div> 

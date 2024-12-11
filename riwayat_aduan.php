@@ -255,6 +255,11 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
                 <?php endif; ?>        
             </div>
         </div>
+        <footer class="footer mt-4 py-3 ">
+    <div class="container text-center">
+        <span class="text-muted">© 2024 SIPRakyat. Semua hak dilindungi.</span>
+    </div>
+</footer>
     </div>
 
     <script>
