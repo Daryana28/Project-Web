@@ -15,8 +15,8 @@ $name = $_SESSION['name'];
 // Konfigurasi koneksi database
 $host_db  = "localhost";
 $user_db  = "root";
-$pass_db  = "";
-$nama_db  = "login";
+$pass_db  = "mysql123";
+$nama_db  = "siprakyat";
 
 $koneksi = mysqli_connect($host_db, $user_db, $pass_db, $nama_db);
 if (!$koneksi) {
@@ -52,73 +52,6 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
             outline: none;
             margin-bottom: 20px; 
         }
-        .notification-icon {
-            position: relative;
-            cursor: pointer;
-            margin-left: 20px;
-        }
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: red;
-            color: white;
-            font-size: 12px;
-            border-radius: 50%;
-            padding: 2px 6px;
-        }
-        .notification-dropdown {
-            position: absolute;
-            top: 40px;
-            right: 0;
-            background: white;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            width: 300px;
-            display: none;
-            z-index: 1000;
-        }
-        .notification-dropdown.active {
-            display: block;
-        }
-        .notification-item {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-            font-size: 14px;
-        }
-        .notification-item:last-child {
-            border-bottom: none;
-        }
-        .notification-item:hover {
-            background-color: #f9f9f9;
-        }
-        .notification-header {
-            font-weight: bold;
-            text-align: center;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            background-color: #f7f7f7;
-        }
-        .notification-footer {
-            text-align: center;
-            padding: 10px;
-            font-size: 14px;
-            background-color: #f7f7f7;
-            border-top: 1px solid #ddd;
-        }
-        @keyframes fadeIn {
-            from {
-                opacity: 0;
-                transform: translateY(20px);
-            }
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-        .fade-in {
-            animation: fadeIn 0.5s ease forwards;
-        }
     </style>
 </head>
 <body>
@@ -152,34 +85,31 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
                 <h2>SIP<b>Rakyat!</b></h2> 
             </div>
             <div class="icons">
-                <i class="bi bi-person-circle"></i>
-                <span style="margin-left: 10px;">Halo</span>
-
-                <!-- Ikon Notifikasi -->
-                <div class="notification-icon" onclick="toggleNotifications()">
-                    <i class="bi bi-bell-fill"></i>
+            <span>Halo, <b><?php echo htmlspecialchars($name); ?></b></span>
+            <div class="notification-icon" onclick="toggleNotifications()">
+                <i class="bi bi-bell-fill"></i>
+                <?php if ($notification_count > 0): ?>
+                    <span class="notification-badge"><?php echo $notification_count; ?></span>
+                <?php endif; ?>
+                <div class="notification-dropdown" id="notificationDropdown">
+                    <div class="notification-header">Notifikasi</div>
                     <?php if ($notification_count > 0): ?>
-                        <span class="notification-badge"><?php echo $notification_count; ?></span>
-                    <?php endif; ?>
-                    <div class="notification-dropdown" id="notificationDropdown">
-                        <div class="notification-header">Notifikasi</div>
-                        <?php if ($notification_count > 0): ?>
-                            <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                                <div class="notification-item">
-                                    <strong>Jenis Aduan:</strong> <?php echo htmlspecialchars($row['jenis_aduan']); ?><br>
-                                    <span>Status: <strong style="color: red;">Ditolak</strong></span>
-                                </div>
-                            <?php endwhile; ?>
-                            <div class="notification-footer">
-                                <a href="?markAsRead=1">Tandai Semua Dibaca</a>
+                        <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                            <div class="notification-item">
+                                <strong>Jenis Aduan:</strong> <?php echo htmlspecialchars($row['jenis_aduan']); ?><br>
+                                <span>Status: <strong style="color: red;">Ditolak</strong></span>
                             </div>
-                        <?php else: ?>
-                            <div class="notification-item">Tidak ada notifikasi.</div>
-                        <?php endif; ?>
-                    </div>
+                        <?php endwhile; ?>
+                        <div class="notification-footer">
+                            <a href="?markAsRead=1">Tandai Semua Dibaca</a>
+                        </div>
+                    <?php else: ?>
+                        <div class="notification-item">Tidak ada notifikasi.</div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
+    </div>
         <div class="main-content fade-in">
             <div class="container mt-5">
                 <!-- Notifikasi sukses -->
@@ -204,10 +134,22 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
                     <div class="form-group">
                         <label for="Kampung">Kampung</label>
                         <select id="Kampung" class="form-control" name="kampung" required>
-                            <option selected>Pilih Kampung...</option>
-                            <option value="Citoke">Citoke</option>
-                            <option value="Semplek">Semplek</option>
-                            <option value="Krajan">Krajan</option>
+                            <option value="" disabled selected>Pilih Kampung...</option>
+                            <?php
+                            // Query untuk mengambil semua kampung dari tabel `kampung`
+                            $query_kampung = "SELECT nama_kampung FROM kampung ORDER BY nama_kampung ASC";
+                            $result_kampung = mysqli_query($koneksi, $query_kampung);
+
+                            // Periksa apakah query berhasil
+                            if ($result_kampung) {
+                                // Loop untuk menampilkan data kampung ke dropdown
+                                while ($row = mysqli_fetch_assoc($result_kampung)) {
+                                    echo '<option value="' . htmlspecialchars($row['nama_kampung']) . '">' . htmlspecialchars($row['nama_kampung']) . '</option>';
+                                }
+                            } else {
+                                echo '<option value="" disabled>Data kampung tidak tersedia</option>';
+                            }
+                            ?>
                         </select>
                     </div>
 

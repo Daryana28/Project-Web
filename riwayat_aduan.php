@@ -15,13 +15,25 @@ $name = $_SESSION['name'];
 // Konfigurasi koneksi database
 $host_db  = "localhost";
 $user_db  = "root";
-$pass_db  = "";
-$nama_db  = "login";
+$pass_db  = "mysql123";
+$nama_db  = "siprakyat";
 
 // Koneksi ke database
 $koneksi = mysqli_connect($host_db, $user_db, $pass_db, $nama_db);
 if (!$koneksi) {
     die("Koneksi gagal: " . mysqli_connect_error());
+}
+
+// Proses penghapusan data
+if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['delete_id'])) {
+    $delete_id = intval($_POST['delete_id']);
+    $delete_query = "DELETE FROM aduan WHERE id = $delete_id AND user_email = '{$_SESSION['email']}'";
+    if (mysqli_query($koneksi, $delete_query)) {
+        header("Location: riwayat_aduan.php?success=Data berhasil dihapus");
+        exit();
+    } else {
+        echo "Error: " . mysqli_error($koneksi);
+    }
 }
 
 // Ambil email pengguna dari session
@@ -60,60 +72,6 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
             border: 1px dashed #ff4d73 !important;
             outline: none;
             margin-bottom: 20px;
-        }
-        .notification-icon {
-            position: relative;
-            cursor: pointer;
-            margin-left: 20px;
-        }
-        .notification-badge {
-            position: absolute;
-            top: -5px;
-            right: -5px;
-            background-color: red;
-            color: white;
-            font-size: 12px;
-            border-radius: 50%;
-            padding: 2px 6px;
-        }
-        .notification-dropdown {
-            position: absolute;
-            top: 40px;
-            right: 0;
-            background: white;
-            box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
-            border-radius: 5px;
-            width: 300px;
-            display: none;
-            z-index: 1000;
-        }
-        .notification-dropdown.active {
-            display: block;
-        }
-        .notification-item {
-            padding: 10px;
-            border-bottom: 1px solid #eee;
-            font-size: 14px;
-        }
-        .notification-item:last-child {
-            border-bottom: none;
-        }
-        .notification-item:hover {
-            background-color: #f9f9f9;
-        }
-        .notification-header {
-            font-weight: bold;
-            text-align: center;
-            padding: 10px;
-            border-bottom: 1px solid #ddd;
-            background-color: #f7f7f7;
-        }
-        .notification-footer {
-            text-align: center;
-            padding: 10px;
-            font-size: 14px;
-            background-color: #f7f7f7;
-            border-top: 1px solid #ddd;
         }
         table {
             width: 100%;
@@ -186,34 +144,31 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
                 <h2>SIP<b>Rakyat!</b></h2>
             </div>
             <div class="icons">
-                <i class="bi bi-person-circle"></i>
-                <span style="margin-left: 10px;">Halo</span>
-
-                <!-- Ikon Notifikasi -->
-                <div class="notification-icon" onclick="toggleNotifications()">
-                    <i class="bi bi-bell-fill"></i>
+            <span>Halo, <b><?php echo htmlspecialchars($name); ?></b></span>
+            <div class="notification-icon" onclick="toggleNotifications()">
+                <i class="bi bi-bell-fill"></i>
+                <?php if ($notification_count > 0): ?>
+                    <span class="notification-badge"><?php echo $notification_count; ?></span>
+                <?php endif; ?>
+                <div class="notification-dropdown" id="notificationDropdown">
+                    <div class="notification-header">Notifikasi</div>
                     <?php if ($notification_count > 0): ?>
-                        <span class="notification-badge"><?php echo $notification_count; ?></span>
-                    <?php endif; ?>
-                    <div class="notification-dropdown" id="notificationDropdown">
-                        <div class="notification-header">Notifikasi</div>
-                        <?php if ($notification_count > 0): ?>
-                            <?php while ($row = mysqli_fetch_assoc($result)): ?>
-                                <div class="notification-item">
-                                    <strong>Jenis Aduan:</strong> <?php echo htmlspecialchars($row['jenis_aduan']); ?><br>
-                                    <span>Status: <strong style="color: red;">Ditolak</strong></span>
-                                </div>
-                            <?php endwhile; ?>
-                            <div class="notification-footer">
-                                <a href="?markAsRead=1">Tandai Semua Dibaca</a>
+                        <?php while ($row = mysqli_fetch_assoc($result)): ?>
+                            <div class="notification-item">
+                                <strong>Jenis Aduan:</strong> <?php echo htmlspecialchars($row['jenis_aduan']); ?><br>
+                                <span>Status: <strong style="color: red;">Ditolak</strong></span>
                             </div>
-                        <?php else: ?>
-                            <div class="notification-item">Tidak ada notifikasi.</div>
-                        <?php endif; ?>
-                    </div>
+                        <?php endwhile; ?>
+                        <div class="notification-footer">
+                            <a href="?markAsRead=1">Tandai Semua Dibaca</a>
+                        </div>
+                    <?php else: ?>
+                        <div class="notification-item">Tidak ada notifikasi.</div>
+                    <?php endif; ?>
                 </div>
             </div>
         </div>
+    </div>
         <div class="main-content fade-in">
             <div class="container mt-5">
                 <h2>Riwayat Aduan Anda</h2>
@@ -226,6 +181,7 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
                                 <th>Isi Aduan</th>
                                 <th>Tanggal Pengaduan</th>
                                 <th>Status</th>
+                                <th>Action</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -245,6 +201,12 @@ if (isset($_GET['markAsRead']) && $_GET['markAsRead'] === '1') {
                                             echo "<span class='status-pending'>Menunggu</span>";
                                         }
                                         ?>
+                                    </td>
+                                    <td>
+                                        <form method="POST" action="">
+                                            <input type="hidden" name="delete_id" value="<?php echo $row['id']; ?>">
+                                            <button type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Yakin ingin menghapus aduan ini?')">Delete</button>
+                                        </form>
                                     </td>
                                 </tr>
                             <?php endwhile; ?>

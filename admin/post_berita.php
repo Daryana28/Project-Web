@@ -11,8 +11,8 @@ if (!isset($_SESSION['role']) || $_SESSION['role'] !== 'admin') {
 // Koneksi database
 $host_db  = "localhost";
 $user_db  = "root";
-$pass_db  = "";
-$nama_db  = "login";
+$pass_db  = "mysql123";
+$nama_db  = "siprakyat";
 
 $koneksi = mysqli_connect($host_db, $user_db, $pass_db, $nama_db);
 if (!$koneksi) {
@@ -67,6 +67,32 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 // Ambil daftar berita dari database untuk ditampilkan
 $query = "SELECT * FROM berita ORDER BY created_at DESC";
 $result = mysqli_query($koneksi, $query);
+
+// Tangani penghapusan berita
+if (isset($_GET['delete'])) {
+    $id = intval($_GET['delete']); // Sanitasi ID
+    // Ambil informasi gambar untuk dihapus
+    $query_image = "SELECT image FROM berita WHERE id = $id";
+    $result_image = mysqli_query($koneksi, $query_image);
+    $data_image = mysqli_fetch_assoc($result_image);
+
+    // Hapus gambar dari folder jika ada
+    if (!empty($data_image['image']) && file_exists($data_image['image'])) {
+        unlink($data_image['image']);
+    }
+
+    // Hapus berita dari database
+    $query_delete = "DELETE FROM berita WHERE id = $id";
+    if (mysqli_query($koneksi, $query_delete)) {
+        $success = "Berita berhasil dihapus!";
+    } else {
+        $error = "Gagal menghapus berita: " . mysqli_error($koneksi);
+    }
+
+    // Redirect untuk menghindari refresh penghapusan ulang
+    header("Location: post_berita.php");
+    exit();
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -120,6 +146,9 @@ $result = mysqli_query($koneksi, $query);
 
         .news-list {
             margin-top: 30px;
+            padding-left: 20px;
+            padding-top: 20px;
+            padding-right: 20px;
         }
 
         .news-item {
@@ -146,6 +175,21 @@ $result = mysqli_query($koneksi, $query);
                 opacity: 1;
                 transform: translateY(0);
             }
+        }
+        .btn-delete {
+            background-color: #e74c3c;
+            color: white;
+            border: none;
+            padding: 8px 12px;
+            border-radius: 5px;
+            text-decoration: none;
+            cursor: pointer;
+            text-align: center;
+            display: inline-block;
+        }
+
+        .btn-delete:hover {
+            background-color: darkred;
         }
     </style>
 </head>
@@ -183,7 +227,7 @@ $result = mysqli_query($koneksi, $query);
                 <i class="bi bi-person-circle"></i>
             </div>
         </div>
-        <div class="main-content fade-in"> <!-- Tambahkan kelas fade-in di sini -->
+        <div class="main-content fade-in">
             <h2 style="text-align: center;">Post Berita Baru</h2>
             <div class="post-container">
                 <?php if (isset($success)): ?>
@@ -207,6 +251,47 @@ $result = mysqli_query($koneksi, $query);
                     <button type="submit" class="btn-submit">Post Berita</button>
                 </form>
             </div>
+        </div>
+  
+            <!-- Daftar Berita -->
+            <div class="news-list">
+            <h3>Daftar Berita</h3>
+            <table>
+                <thead>
+                    <tr>
+                        <th>No</th>
+                        <th>Judul Berita</th>
+                        <th>Isi Berita</th>
+                        <th>Gambar</th>
+                        <th>Action</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php if (mysqli_num_rows($result) > 0): ?>
+                        <?php $no = 1; while ($row = mysqli_fetch_assoc($result)): ?>
+                            <tr>
+                                <td><?php echo $no++; ?></td>
+                                <td><?php echo htmlspecialchars($row['title']); ?></td>
+                                <td><?php echo substr(htmlspecialchars($row['content']), 0, 50) . '...'; ?></td>
+                                <td>
+                                    <?php if (!empty($row['image'])): ?>
+                                        <img src="<?php echo htmlspecialchars($row['image']); ?>" alt="Gambar" width="50">
+                                    <?php else: ?>
+                                        Tidak ada gambar
+                                    <?php endif; ?>
+                                </td>
+                                <td>
+                                    <a href="post_berita.php?delete=<?php echo $row['id']; ?>" class="btn-delete">Delete</a>
+                                </td>
+                            </tr>
+                        <?php endwhile; ?>
+                    <?php else: ?>
+                        <tr>
+                            <td colspan="5" style="text-align: center;">Belum ada berita.</td>
+                        </tr>
+                    <?php endif; ?>
+                </tbody>
+            </table>
         </div>
     </div>
 </body>

@@ -14,13 +14,20 @@ body {
 
 /* Sidebar */
 .sidebar {
+  position: fixed; /* Sidebar tetap di tempat */
+  top: 0;
+  left: 0;
   width: 250px;
+  height: 100vh; /* Sidebar sepanjang tinggi viewport */
   background-color: #fff;
   padding: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
+  z-index: 1000; /* Tetap di atas elemen lainnya */
+  overflow-y: auto; /* Tambahkan scroll jika konten sidebar terlalu panjang */
 }
+
 
 .sidebar-header h2 {
   font-size: 18px;
@@ -59,21 +66,25 @@ body {
 
 /* Content */
 .content {
-  color: #333;
-  background-color: #fff;
+  margin-left: 252px; /* Sesuaikan dengan garis pemisah */
+  padding-top: 70px; /* Beri ruang untuk navbar tetap */
   flex: 1;
-  display: flex;
-  flex-direction: column;
-  padding: 20px;
+  background-color: #fff;
+  color: #333;
 }
 
 .content-header {
-  display: flex;
-  justify-content: space-between; /* Membagi ruang antara logo dan ikon */
-  align-items: center;
-  padding: 10px 20px;
+  position: fixed;
+  top: 0;
+  left: 252px; /* Menyesuaikan garis pemisah */
+  right: 0;
   background-color: #fff;
+  z-index: 999;
+  padding: 10px 20px;
   border-bottom: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between; /* Memisahkan elemen ke kiri dan kanan */
+  align-items: center;
 }
 
 .header-logo {
@@ -94,7 +105,7 @@ body {
 .icons {
   display: flex;
   align-items: center;
-  gap: 10px; /* Jarak antar elemen */
+  gap: 15px; /* Jarak antar elemen */
 }
 
 .icon {
@@ -259,11 +270,13 @@ th {
 }
 
 .vertical-line {
+  position: fixed;
+  top: 0;
+  left: 250px; /* Menyesuaikan dengan lebar sidebar */
   width: 2px;
-  background-color: #ddd;
   height: 100vh;
-  display: inline-block;
-  vertical-align: top;
+  background-color: #ddd; /* Warna garis pemisah */
+  z-index: 998; /* Agar tetap di bawah navbar */
 }
 
 /* Atur gaya untuk kolom action */

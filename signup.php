@@ -2,8 +2,8 @@
 // Konfigurasi koneksi database
 $host_db  = "localhost";
 $user_db  = "root";
-$pass_db  = "";
-$nama_db  = "login";
+$pass_db  = "mysql123";
+$nama_db  = "siprakyat";
 
 // Membuat koneksi ke database
 $koneksi = mysqli_connect($host_db, $user_db, $pass_db, $nama_db);
@@ -14,14 +14,13 @@ if (!$koneksi) {
 // Tangani form signup jika metode POST
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     // Mengambil data dari form
+    $username = mysqli_real_escape_string($koneksi, $_POST['username']);
     $first_name = mysqli_real_escape_string($koneksi, $_POST['first-name']);
-    $last_name = mysqli_real_escape_string($koneksi, $_POST['last-name']);
     $email = mysqli_real_escape_string($koneksi, $_POST['email']);
     $password = mysqli_real_escape_string($koneksi, $_POST['password']);
     
-     // Jangan mengenkripsi password
-    $hashed_password = $password;  // Menyimpan password tanpa enkripsi
-    
+    // Mengenkripsi password
+    $hashed_password = password_hash($password, PASSWORD_BCRYPT);
 
     // Cek apakah email sudah ada di database
     $query = "SELECT * FROM users WHERE email = '$email'";
@@ -33,8 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         exit();
     } else {
         // Jika email belum terdaftar, simpan data ke database
-        $insert_query = "INSERT INTO users (first_name, last_name, email, password) 
-                         VALUES ('$first_name', '$last_name', '$email', '$hashed_password')";
+        $insert_query = "INSERT INTO users (username, first_name, email, password) VALUES ('$username', '$first_name', '$email', '$hashed_password')";
         
         if (mysqli_query($koneksi, $insert_query)) {
             // Jika berhasil, arahkan ke halaman login
@@ -80,23 +78,23 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
             <!-- Form Signup -->
             <form action="signup.php" method="POST">
-                <label for="first-name">First name</label>
+                <label for="username">Username</label>
+                <input
+                    type="text"
+                    id="username"
+                    name="username"
+                    placeholder="Enter your username"
+                    required
+                />
+
+                <!-- <label for="first-name">First name</label>
                 <input
                     type="text"
                     id="first-name"
                     name="first-name"
                     placeholder="Enter your first name"
                     required
-                />
-
-                <label for="last-name">Last name</label>
-                <input
-                    type="text"
-                    id="last-name"
-                    name="last-name"
-                    placeholder="Enter your last name"
-                    required
-                />
+                /> -->
 
                 <label for="email">Your email</label>
                 <input
